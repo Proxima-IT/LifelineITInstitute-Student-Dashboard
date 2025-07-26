@@ -86,7 +86,7 @@ const SideNav = () => {
       await axios.get(import.meta.env.VITE_API_URL + `/api/auth/logout`, {
         withCredentials: true,
       })
-      window.location.href = import.meta.env.VITE_PUBLIC_PAGE + "/login"
+      window.location.href = import.meta.env.VITE_PUBLIC_PAGE
     }, 4000)
 
     toast.success(`${data?.name} is successfully logged out`, {
@@ -110,13 +110,12 @@ const SideNav = () => {
       </div>
     )
 
-
-     const handleClick = () => {
+  const handleClick = () => {
     // navigate("/our-courses");
     setTimeout(() => {
-      window.scrollTo({ top: 0, behavior: "smooth" });
-    }, 100); // delay to ensure page loads
-  };
+      window.scrollTo({ top: 0, behavior: "smooth" })
+    }, 100) // delay to ensure page loads
+  }
 
   return (
     <div>
@@ -140,7 +139,7 @@ const SideNav = () => {
           >
             <FaAngleDoubleUp />
           </div>
-           {isOpen && (
+          {isOpen && (
             <div
               className="fixed inset-0 bg-black bg-opacity-50 z-40"
               onClick={() => setIsOpen(false)}
