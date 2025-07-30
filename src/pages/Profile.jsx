@@ -1,43 +1,41 @@
-import { dashboardData } from "@/hooks/dashboardData";
-import axios from "axios";
-import React, { useState } from "react";
-import { Helmet } from "react-helmet-async";
-import { FaUpload } from "react-icons/fa";
-import { useNavigate } from "react-router-dom";
-import { toast, ToastContainer } from "react-toastify";
-import "react-toastify/dist/ReactToastify.css";
-import imageCompression from "browser-image-compression";
+import { dashboardData } from "@/hooks/dashboardData"
+import axios from "axios"
+import React, { useState } from "react"
+import { Helmet } from "react-helmet-async"
+import { FaUpload } from "react-icons/fa"
+import { useNavigate } from "react-router-dom"
+import { toast, ToastContainer } from "react-toastify"
+import "react-toastify/dist/ReactToastify.css"
+import imageCompression from "browser-image-compression"
 
 const Profile = () => {
-  const { data, isLoading, error } = dashboardData();
+  const { data, isLoading, error } = dashboardData()
 
-  console.log(data, isLoading, error);
+  console.log(data, isLoading, error)
 
-  const [gender, setGender] = useState(data?.gender || "");
-  const [dob, setDob] = useState(data?.dateOfBirth || "");
-  const [uploadedImageUrl, setUploadedImageUrl] = useState("");
-  const [loading, setLoading] = useState(false);
+  const [gender, setGender] = useState(data?.gender || "")
+  const [dob, setDob] = useState(data?.dateOfBirth || "")
+  const [uploadedImageUrl, setUploadedImageUrl] = useState("")
+  const [loading, setLoading] = useState(false)
 
-  const navigate = useNavigate();
-
-  // useEffect(() => {
-  //   if (data) {
-  //     setGender(data.gender || "");
-  //   }
-  // }, [data]);
+  const navigate = useNavigate()
 
   async function uploadImage(file) {
-    setLoading(true); // start loading spinner
+    setLoading(true)
 
     try {
       const compressedFile = await imageCompression(file, {
-        maxSizeMB: 1, // Compress to 1MB or less
-        maxWidthOrHeight: 1024, // Resize if too large
+        maxSizeMB: 0.5,
+        maxWidthOrHeight: 1024,
         useWebWorker: true,
-      });
+      })
 
-      const formData = new FormData();
-      formData.append("image", compressedFile);
+      const formData = new FormData()
+      formData.append(
+        "image",
+        compressedFile,
+        `${data.sid}-${data.name.split(" ").join("_")}`
+      )
 
       const res = await fetch(
         `https://api.imgbb.com/1/upload?key=${import.meta.env.VITE_IMGBB_KEY}`,
@@ -45,18 +43,18 @@ const Profile = () => {
           method: "POST",
           body: formData,
         }
-      );
+      )
 
-      const data = await res.json();
+      const data = await res.json()
 
       if (data?.data?.url) {
-        setUploadedImageUrl(data.data.url); // ✅ set URL
-        console.log("Image URL:", data.data.url);
+        setUploadedImageUrl(data.data.url) // ✅ set URL
+        console.log("Image URL:", data.data.url)
       }
     } catch (error) {
-      console.error("Image upload failed:", error);
+      console.error("Image upload failed:", error)
     } finally {
-      setLoading(false); // stop loading spinner regardless of success/failure
+      setLoading(false) // stop loading spinner regardless of success/failure
     }
   }
 
@@ -200,13 +198,12 @@ const Profile = () => {
           </div> */}
 
           {/* Profile Picture */}
-        
+
           <div className="flex-shrink-0 flex flex-col items-center">
             {loading ? (
               // Spinner shown while uploading
               <div className="w-32 h-32 flex items-center justify-center rounded-full border-4 border-blue-500 shadow">
-               <span class="loader"></span>
-
+                <span class="loader"></span>
               </div>
             ) : (
               <img
@@ -231,9 +228,9 @@ const Profile = () => {
                 type="file"
                 accept="image/*"
                 onChange={(e) => {
-                  const file = e.target.files[0];
+                  const file = e.target.files[0]
                   if (file) {
-                    uploadImage(file);
+                    uploadImage(file)
                   }
                 }}
                 className="hidden"
@@ -370,7 +367,7 @@ const Profile = () => {
       </div>
       <ToastContainer></ToastContainer>
     </div>
-  );
-};
+  )
+}
 
-export default Profile;
+export default Profile
