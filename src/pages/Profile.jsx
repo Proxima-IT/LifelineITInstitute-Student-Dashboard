@@ -1,62 +1,65 @@
-import { dashboardData } from "@/hooks/dashboardData"
-import axios from "axios"
-import React, { useState } from "react"
-import { Helmet } from "react-helmet-async"
-import { FaUpload } from "react-icons/fa"
-import { useNavigate } from "react-router-dom"
-import { toast, ToastContainer } from "react-toastify"
-import "react-toastify/dist/ReactToastify.css"
-import imageCompression from "browser-image-compression"
+import { dashboardData } from "@/hooks/dashboardData";
+import axios from "axios";
+import React, { useState } from "react";
+import { Helmet } from "react-helmet-async";
+import { FaUpload } from "react-icons/fa";
+import { useNavigate } from "react-router-dom";
+import { toast, ToastContainer } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
+import imageCompression from "browser-image-compression";
 
 const Profile = () => {
-  const { data, isLoading, error } = dashboardData()
+  const { data, isLoading, error } = dashboardData();
 
-  console.log(data, isLoading, error)
+  console.log(data, isLoading, error);
 
-  const [gender, setGender] = useState(data?.gender || "")
-  const [dob, setDob] = useState(data?.dateOfBirth || "")
-  const [uploadedImageUrl, setUploadedImageUrl] = useState("")
-  const [loading, setLoading] = useState(false)
+  const [gender, setGender] = useState(data?.gender || "");
+  const [dob, setDob] = useState(data?.dateOfBirth || "");
+  const [uploadedImageUrl, setUploadedImageUrl] = useState("");
+  const [loading, setLoading] = useState(false);
 
-  const navigate = useNavigate()
+  const navigate = useNavigate();
 
   async function uploadImage(file) {
-    setLoading(true)
+  setLoading(true);
 
-    try {
-      const compressedFile = await imageCompression(file, {
-        maxSizeMB: 0.5,
-        maxWidthOrHeight: 1024,
-        useWebWorker: true,
-      })
+  try {
+    const compressedFile = await imageCompression(file, {
+      maxSizeMB: 0.5,
+      maxWidthOrHeight: 1024,
+      useWebWorker: true,
+    });
 
-      const formData = new FormData()
-      formData.append(
-        "image",
-        compressedFile,
-        `${data.sid}-${data.name.split(" ").join("_")}`
-      )
+    const originalExtension = file.name.split(".").pop(); // get extension
+    const fileName = `${data.sid}-${data.name
+      .split(" ")
+      .join("_")}.${originalExtension}`;
+    const formData = new FormData();
+    formData.append("image", compressedFile, fileName);
 
-      const res = await fetch(
-        `https://api.imgbb.com/1/upload?key=${import.meta.env.VITE_IMGBB_KEY}`,
-        {
-          method: "POST",
-          body: formData,
-        }
-      )
-
-      const data = await res.json()
-
-      if (data?.data?.url) {
-        setUploadedImageUrl(data.data.url) // ✅ set URL
-        console.log("Image URL:", data.data.url)
+    const res = await fetch(
+      `https://api.imgbb.com/1/upload?key=${import.meta.env.VITE_IMGBB_KEY}`,
+      {
+        method: "POST",
+        body: formData,
       }
-    } catch (error) {
-      console.error("Image upload failed:", error)
-    } finally {
-      setLoading(false) // stop loading spinner regardless of success/failure
+    );
+
+    const responseData = await res.json(); // ✅ renamed from "data" to "responseData"
+
+    if (responseData?.data?.url) {
+      setUploadedImageUrl(responseData.data.url); // ✅ set URL
+      console.log("Image URL:", responseData.data.url);
+    } else {
+      console.error("Upload failed: No URL returned");
     }
+  } catch (error) {
+    console.error("Image upload failed:", error);
+  } finally {
+    setLoading(false); // stop loading spinner regardless of success/failure
   }
+}
+
 
   // const handleChangeProfile = async (e) => {
   //   e.preventDefault();
@@ -112,13 +115,13 @@ const Profile = () => {
   // };
 
   const handleChangeProfile = async (e) => {
-    e.preventDefault()
+    e.preventDefault();
 
-    const formData = new FormData(e.currentTarget)
-    const data = Object.fromEntries(formData.entries())
-    data.gender = gender
-    data.dateOfBirth = dob
-    data.image = uploadedImageUrl || data.image || "" // ✅ Attach uploaded image URL
+    const formData = new FormData(e.currentTarget);
+    const data = Object.fromEntries(formData.entries());
+    data.gender = gender;
+    data.dateOfBirth = dob;
+    data.image = uploadedImageUrl || data.image || ""; // ✅ Attach uploaded image URL
 
     // submitting profile info
     axios
@@ -131,23 +134,23 @@ const Profile = () => {
             position: "top-center",
             autoClose: 3000,
             theme: "dark",
-          })
+          });
           setTimeout(() => {
-            navigate("/")
-          }, 4000)
+            navigate("/");
+          }, 4000);
         } else {
           toast.error(res.data.message, {
             position: "top-center",
             autoClose: 3000,
             theme: "dark",
-          })
+          });
         }
       })
       .catch((err) => {
-        toast.error("Something went wrong!")
-        console.error(err)
-      })
-  }
+        toast.error("Something went wrong!");
+        console.error(err);
+      });
+  };
 
   return (
     <div>
@@ -228,9 +231,9 @@ const Profile = () => {
                 type="file"
                 accept="image/*"
                 onChange={(e) => {
-                  const file = e.target.files[0]
+                  const file = e.target.files[0];
                   if (file) {
-                    uploadImage(file)
+                    uploadImage(file);
                   }
                 }}
                 className="hidden"
@@ -367,7 +370,7 @@ const Profile = () => {
       </div>
       <ToastContainer></ToastContainer>
     </div>
-  )
-}
+  );
+};
 
-export default Profile
+export default Profile;
