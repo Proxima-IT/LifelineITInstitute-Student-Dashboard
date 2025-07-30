@@ -282,7 +282,7 @@ const Modules = () => {
               max={duration}
               value={currentTime}
               onChange={handleSeek}
-              className="w-full h-[1px] accent-orange-400"
+              className={`w-full h-[0.5px] accent-orange-400`}
             />
           </div>
 

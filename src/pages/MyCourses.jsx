@@ -46,7 +46,7 @@ const MyCourses = () => {
 
                   <Link to={`/courses/${course.route}`}>
                     <button className="flex w-full items-center justify-center text-blue-600 font-bold hover:underline">
-                      Details
+                      Open
                       <BsArrowRight className="ml-2 w-4 h-4" />
                     </button>
                   </Link>
