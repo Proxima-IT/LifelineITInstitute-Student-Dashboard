@@ -21,45 +21,49 @@ const Profile = () => {
   const navigate = useNavigate();
 
   async function uploadImage(file) {
-  setLoading(true);
+    setLoading(true);
 
-  try {
-    const compressedFile = await imageCompression(file, {
-      maxSizeMB: 0.5,
-      maxWidthOrHeight: 1024,
-      useWebWorker: true,
-    });
+    try {
+      const compressedBlob = await imageCompression(file, {
+        maxSizeMB: 0.5,
+        maxWidthOrHeight: 1024,
+        useWebWorker: true,
+      });
 
-    const originalExtension = file.name.split(".").pop(); // get extension
-    const fileName = `${data.sid}-${data.name
-      .split(" ")
-      .join("_")}.${originalExtension}`;
-    const formData = new FormData();
-    formData.append("image", compressedFile, fileName);
+      const originalExtension = file.name.split(".").pop();
+      const fileName = `${data.sid}-${data.name
+        .split(" ")
+        .join("_")}.${originalExtension}`;
 
-    const res = await fetch(
-      `https://api.imgbb.com/1/upload?key=${import.meta.env.VITE_IMGBB_KEY}`,
-      {
-        method: "POST",
-        body: formData,
+      const compressedFile = new File([compressedBlob], fileName, {
+        type: compressedBlob.type,
+      });
+
+      const formData = new FormData();
+      formData.append("image", compressedFile); // ✅ now it's a File with correct name
+
+      const res = await fetch(
+        `https://api.imgbb.com/1/upload?key=${import.meta.env.VITE_IMGBB_KEY}`,
+        {
+          method: "POST",
+          body: formData,
+        }
+      );
+
+      const responseData = await res.json();
+
+      if (responseData?.data?.url) {
+        setUploadedImageUrl(responseData.data.url);
+        console.log("Image URL:", responseData.data.url);
+      } else {
+        console.error("Upload failed: No URL returned");
       }
-    );
-
-    const responseData = await res.json(); // ✅ renamed from "data" to "responseData"
-
-    if (responseData?.data?.url) {
-      setUploadedImageUrl(responseData.data.url); // ✅ set URL
-      console.log("Image URL:", responseData.data.url);
-    } else {
-      console.error("Upload failed: No URL returned");
+    } catch (error) {
+      console.error("Image upload failed:", error);
+    } finally {
+      setLoading(false);
     }
-  } catch (error) {
-    console.error("Image upload failed:", error);
-  } finally {
-    setLoading(false); // stop loading spinner regardless of success/failure
   }
-}
-
 
   // const handleChangeProfile = async (e) => {
   //   e.preventDefault();

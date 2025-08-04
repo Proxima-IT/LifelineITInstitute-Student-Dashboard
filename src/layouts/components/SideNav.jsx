@@ -97,6 +97,8 @@ const SideNav = () => {
       theme: "dark",
     })
   }
+
+  
   if (isLoading)
     return (
       <div>
@@ -113,7 +115,7 @@ const SideNav = () => {
   const handleClick = () => {
     // navigate("/our-courses");
     setTimeout(() => {
-      window.scrollTo({ top: 0, behavior: "smooth" })
+      window.scrollTo({ top: 320, behavior: "smooth" })
     }, 100) // delay to ensure page loads
   }
 
