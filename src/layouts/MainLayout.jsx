@@ -7,7 +7,7 @@ import ErrorBoundary from "@/pages/ErrorBoundary";
 const MainLayout = () => {
   return (
     <ErrorBoundary>
-      <div className="bg-[#f9f9ff] font-roboto lg:p-2">
+      <div className="bg-[#f9f9ff] font-roboto ">
         <SideNav />
       </div>
     </ErrorBoundary>

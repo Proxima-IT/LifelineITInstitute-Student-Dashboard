@@ -32,7 +32,7 @@ export function ProfileIcon() {
 
   return (
     <div
-      className="relative inline-block"
+      className="relative inline-block  z-20"
       onMouseEnter={() => setShowDropdown(true)}
       onMouseLeave={() => setShowDropdown(false)}
     >
@@ -50,7 +50,7 @@ export function ProfileIcon() {
       </div>
 
       <div
-        className={`absolute -left-[148px] p-4  w-52 rounded-md shadow-md text-black bg-white ring-1 ring-black ring-opacity-5 transition-all duration-200 transform ${
+        className={`absolute lg:-left-[100px] -right-8 p-4  w-52 rounded-md shadow-md text-black bg-white ring-1 ring-black ring-opacity-5 transition-all duration-200 transform ${
           showDropdown
             ? "opacity-100 scale-100"
             : "opacity-0 scale-95 pointer-events-none"
