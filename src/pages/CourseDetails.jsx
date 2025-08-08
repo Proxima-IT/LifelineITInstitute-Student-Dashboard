@@ -37,16 +37,16 @@ const CourseDetails = () => {
       </Helmet>
 
       <div className="text-left space-y-5">
-        <h2 className="mb-4 text-2xl text-left font-semibold leading-tight">
+        <h2 className="mb-4 text-xl p-3 text-[#285ca5] flex items-center justify-center font-bold leading-tight bg-slate-200  shadow-md">
           Course Details
         </h2>
 
-        <div>
+        <div className="text-center">
           {/* <h1 className="font-bold text-lg">Course & Batch</h1> */}
-          <p className="text-2xl font-bold text-[#0B254C] mb-4 ">
+          <p className="text-2xl font-bold text-[#285ca5] mb-4 ">
             {course.title}
           </p>
-          <p className="text-lg font-bold text-[#0B254C]">{course.subtitle}</p>
+          <p className="text-lg font-bold text-[#285ca5]">{course.subtitle}</p>
         </div>
 
         <h1 className="font-bold text-lg">Instructor</h1>

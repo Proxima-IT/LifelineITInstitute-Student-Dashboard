@@ -41,8 +41,9 @@ import { FaArrowRightFromBracket } from "react-icons/fa6"
 import { IoIosPaper, IoMdClose, IoMdLock } from "react-icons/io"
 import { dashboardData } from "@/hooks/dashboardData"
 import useNotice from "@/hooks/useNotice"
-import { AiOutlineMenuFold } from "react-icons/ai"
+import { AiOutlineMenuFold, AiOutlineMenuUnfold } from "react-icons/ai"
 import { toast, ToastContainer } from "react-toastify"
+import { ProfileIcon } from "./ProfileIcon"
 
 const SideNav = () => {
   const [anchorElNav, setAnchorElNav] = React.useState(null)
@@ -123,7 +124,7 @@ const SideNav = () => {
     <div>
       {/* <!-- Navigation --> */}
       <header className="sticky top-0 z-50 bg-white shadow">
-        <div className="max-w-screen-xl mx-auto flex justify-between items-center h-16 px-4">
+        <div className="max-w-screen-xl mx-auto flex justify-between items-center bg-[#0B254C] h-16 px-4">
           <Link
             to={`${import.meta.env.VITE_PUBLIC_PAGE}`}
             className="w-1/2 md:w-1/4"
@@ -136,10 +137,10 @@ const SideNav = () => {
           </Link>
 
           <div
-            className="text-[#0B254C] text-2xl lg:hidden flex justify-end"
+            className="text-[#f2f3f5] text-2xl lg:hidden flex justify-end"
             onClick={toggleNavbar}
           >
-            <FaAngleDoubleUp />
+            <AiOutlineMenuUnfold />
           </div>
           {isOpen && (
             <div
@@ -175,16 +176,16 @@ const SideNav = () => {
 
             {/* <div className="border-b border-gray-700 pt-4"></div> */}
 
-            <div className="flex-1 flex flex-col items-center justify-between gap-6 p-6">
+            <div className="flex-1 flex flex-col  items-center justify-between gap-6 p-6">
               <ul
                 onClick={() => setIsOpen(false)}
-                className="flex flex-col items-start justify-center gap-6 text-base text-neutral-700 font-normal font-roboto"
+                className="flex flex-col items-start justify-center gap-6 text-base  font-normal font-roboto"
               >
                 <li>
                   <NavLink
                     to="/dashboard"
                     onClick={handleClick}
-                    className="flex items-center gap-2 hover:bg-gray-100 p-2 rounded-md"
+                    className="flex  items-center gap-2 hover:bg-gray-100 p-2 rounded-md"
                   >
                     <FiHome /> My Dashboard
                   </NavLink>
@@ -273,14 +274,16 @@ const SideNav = () => {
             </div>
           </div>
 
-          <nav className="hidden md:flex items-center justify-evenly space-x-4 text-sm">
+          <nav className="hidden md:flex items-center justify-evenly text-white space-x-4 text-sm">
             {/* <Link
               to="/"
               className="relative font-semibold text-brand after:absolute after:bottom-[-6px] after:left-0 after:w-full after:h-[2px] after:bg-brand"
             >
               Home
             </Link> */}
+            <Link to="https://lifelineitinstitute.com/">Home</Link>
             <Link to="https://lifelineitinstitute.com/about">About Us</Link>
+            <Link to="https://lifelineitinstitute.com/courses">Courses</Link>
 
             <Link to="https://lifelineitinstitute.com/success-story">
               Success Story
@@ -288,15 +291,17 @@ const SideNav = () => {
             <Link to="https://lifelineitinstitute.com/student-review">
               Student Reviews
             </Link>
-            <Link to="#">Events</Link>
+           
             <Link to="https://lifelineitinstitute.com/contact">Contact Us</Link>
 
-            <Box sx={{ flexGrow: 0 }}>
-              <Tooltip title="Open settings">
+             <ProfileIcon></ProfileIcon>
+
+            {/* <Box sx={{ flexGrow: 0 }} className="border-2 border-white rounded-full">
+              <Tooltip title="My Profile" className="bg-white text-black">
                 <IconButton
                   onClick={handleOpenUserMenu}
                   sx={{ p: 0 }}
-                  className="border-2 border-blue-700"
+                  className="border-2 border-blue-700 "
                 >
                   <Avatar alt="" src={data?.image} />
                 </IconButton>
@@ -352,7 +357,8 @@ const SideNav = () => {
                   </Typography>
                 </MenuItem>
               </Menu>
-            </Box>
+            </Box> */}
+           
           </nav>
         </div>
       </header>
@@ -394,7 +400,7 @@ const SideNav = () => {
       {/* <!-- Main Layout --> */}
       <div className="max-w-screen-xl mx-auto flex flex-col lg:flex-row gap-6 lg:mt-5 px-2 lg:px-4">
         {/* <!-- Sidebar --> */}
-        <aside className="lg:w-1/4 w-full hidden lg:block">
+        <aside className="lg:w-1/4 w-full hidden lg:block border-2 border-[#0B254C] rounded-md py-2">
           <div className="bg-white shadow-card rounded-xl p-6">
             <div className="uppercase text-sm text-gray-500 mb-4">
               Welcome, <strong>{data?.name}</strong>
@@ -435,7 +441,7 @@ const SideNav = () => {
                   className="flex items-center gap-2 hover:bg-gray-100 p-2 rounded-md"
                 >
                   <MdOutlineInsertComment /> Notice Board
-                  <span className="ml-auto text-xs bg-red-300 text-red-900 font-bold px-2 py-0.5 rounded-full">
+                  <span className="ml-auto text-xs bg-[#ffa800] text-gray-900 font-bold px-2 py-0.5 rounded-full">
                     {notices?.length}
                   </span>
                 </NavLink>
@@ -493,7 +499,7 @@ const SideNav = () => {
           </div>
         </aside>
 
-        <div className="lg:w-3/4 bg-white shadow-card h-max rounded-xl lg:p-8">
+        <div className="lg:w-3/4 bg-white shadow-card h-max rounded-xl lg:p-8 border border-[#ffa800]">
           {/* page wise content */}
 
           <Outlet></Outlet>

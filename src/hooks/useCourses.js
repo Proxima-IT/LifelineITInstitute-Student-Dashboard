@@ -27,8 +27,10 @@ const useCourses = () => {
                 appcourse.courseId
               }`
             )
-            console.log(res.data)
-            allCourses.push(res.data)
+            const courseObj = {...(res.data), canIssue: appcourse.certificate.canIssue}
+
+
+            allCourses.push(courseObj)
           } catch (error) {
             console.error("Error fetching a course:", error)
           }

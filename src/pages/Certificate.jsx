@@ -1,23 +1,35 @@
-import { dashboardData } from "@/hooks/dashboardData"
-import useCourses from "@/hooks/useCourses"
-import axios from "axios"
-import React, { useRef, useState } from "react"
-import { Helmet } from "react-helmet"
-import { FaDownload } from "react-icons/fa"
+import { dashboardData } from "@/hooks/dashboardData";
+import useCourses from "@/hooks/useCourses";
+import axios from "axios";
+import React, { useRef, useState } from "react";
+import { Helmet } from "react-helmet";
+import { FaDownload } from "react-icons/fa";
+
+import { Button } from "@/components/ui/button";
+import {
+  Dialog,
+  DialogClose,
+  DialogContent,
+  DialogDescription,
+  DialogFooter,
+  DialogHeader,
+  DialogTitle,
+  DialogTrigger,
+} from "@/components/ui/dialog";
+import { Input } from "@/components/ui/input";
+import { Label } from "@/components/ui/label";
 
 const Certificate = () => {
-  const [btnloading, setBtnloading] = useState(null)
-  const { data, isLoading, error } = dashboardData()
+  const [btnloading, setBtnloading] = useState(null);
+  const { data, isLoading, error } = dashboardData();
 
-  console.log(data?.totalOrders[0].certificate, isLoading, error)
+  const { courses } = useCourses();
+  console.log(courses);
 
-  const { courses } = useCourses()
-  console.log(courses)
-
-  const downloadRef = useRef({})
+  const downloadRef = useRef({});
 
   const handleDownload = async (id, courseTitle) => {
-    setBtnloading(id)
+    setBtnloading(id);
     try {
       const res = await axios.post(
         `${import.meta.env.VITE_API_URL}/api/dashboard/certificate`,
@@ -28,26 +40,28 @@ const Certificate = () => {
           },
           responseType: "blob",
         }
-      )
+      );
 
-      const url = window.URL.createObjectURL(new Blob([res.data]))
-      const a = document.createElement("a")
-      a.href = url
+      const url = window.URL.createObjectURL(new Blob([res.data]));
+      const a = document.createElement("a");
+      a.href = url;
       a.download =
         data.name.split(" ").join("_") +
         "-" +
         courseTitle.split(" ").join("_") +
-        "-certificate.pdf"
-      document.body.appendChild(a)
-      a.click()
-      a.remove()
-      window.URL.revokeObjectURL(url)
+        "-certificate.pdf";
+      document.body.appendChild(a);
+      a.click();
+      a.remove();
+      window.URL.revokeObjectURL(url);
     } catch (error) {
-      console.error(error)
+      console.error(error);
     } finally {
-      setBtnloading(null)
+      setBtnloading(null);
     }
-  }
+  };
+
+  const handleApply = () => {};
   return (
     <div>
       <Helmet>
@@ -77,33 +91,68 @@ const Certificate = () => {
                 </td>
                 {/* download btn  */}
                 <td className="w-1/4 pr-4 border-b border-gray-300">
-                  <button
-                    onClick={() => {
-                      if (downloadRef.current[course._id]) return // already downloading
-                      downloadRef.current[course._id] = true // mark as downloading
-                      handleDownload(course._id, course.title).finally(() => {
-                        downloadRef.current[course._id] = false // mark as done
-                      })
-                    }}
-                    disabled={btnloading === course._id}
-                    className={`w-full flex mx-auto justify-center py-2 px-2 font-semibold rounded-md bg-gradient-to-l from-[#0B254C] via-[#266ea1] to-[#041630] text-white cursor-pointer ${
-                      btnloading === course._id
-                        ? "opacity-80 cursor-not-allowed"
-                        : ""
-                    }`}
-                  >
-                    <span
-                      className={`flex items-center gap-3 ${
-                        btnloading === course._id && "hidden"
+                  {!course.canIssue ? (
+                    <Dialog>
+                      <form>
+                        <DialogTrigger asChild>
+                          <Button variant="outline">Apply</Button>
+                        </DialogTrigger>
+                        <DialogContent className="sm:max-w-[425px]">
+                          <DialogHeader>
+                            <DialogTitle>Assignment Submission</DialogTitle>
+                            <DialogDescription>..</DialogDescription>
+                          </DialogHeader>
+                          <div className="grid gap-4">
+                            <div className="grid gap-3">
+                              <Label htmlFor="drive">Drive Link</Label>
+                              <Input
+                                id="drive"
+                                name="name"
+                                // defaultValue="Pedro Duarte"
+                                placeholder="Enter your drive link"
+                              />
+                            </div>
+                          </div>
+                          <DialogFooter>
+                            <DialogClose asChild>
+                              <Button variant="outline">Cancel</Button>
+                            </DialogClose>
+                            <Button type="submit">Submit</Button>
+                          </DialogFooter>
+                        </DialogContent>
+                      </form>
+                    </Dialog>
+                  ) : (
+                    <button
+                      onClick={() => {
+                        if (downloadRef.current[course._id]) return; // already downloading
+                        downloadRef.current[course._id] = true; // mark as downloading
+                        handleDownload(course._id, course.title).finally(() => {
+                          downloadRef.current[course._id] = false; // mark as done
+                        });
+                      }}
+                      disabled={btnloading === course._id}
+                      className={`w-full flex mx-auto justify-center py-2 px-2 font-semibold rounded-md bg-gradient-to-l from-[#0B254C] via-[#266ea1] to-[#041630] text-white cursor-pointer ${
+                        btnloading === course._id
+                          ? "opacity-80 cursor-not-allowed"
+                          : ""
                       }`}
                     >
-                      Download <FaDownload />
-                    </span>
+                      <span
+                        className={`flex items-center gap-3 ${
+                          btnloading === course._id && "hidden"
+                        }`}
+                      >
+                        <span>
+                          Download <FaDownload />
+                        </span>
+                      </span>
 
-                    {btnloading === course._id && (
-                      <div className="w-6 h-6 border-4 border-dashed rounded-full animate-spin dark:border-violet-600"></div>
-                    )}
-                  </button>
+                      {btnloading === course._id && (
+                        <div className="w-6 h-6 border-4 border-dashed rounded-full animate-spin dark:border-violet-600"></div>
+                      )}
+                    </button>
+                  )}
                 </td>
               </tr>
             ))}
@@ -111,7 +160,7 @@ const Certificate = () => {
         </table>
       </div>
     </div>
-  )
-}
+  );
+};
 
-export default Certificate
+export default Certificate;
