@@ -18,6 +18,7 @@ import {
 } from "@/components/ui/dialog";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
+import { VscGitStashApply } from "react-icons/vsc";
 
 const Certificate = () => {
   const [btnloading, setBtnloading] = useState(null);
@@ -95,12 +96,22 @@ const Certificate = () => {
                     <Dialog>
                       <form>
                         <DialogTrigger asChild>
-                          <Button variant="outline">Apply</Button>
+                          <Button
+                            variant="outline"
+                            className="w-full flex mx-auto justify-center py-2 px-2 font-semibold rounded-md bg-gradient-to-l from-[#0B254C] via-[#266ea1] to-[#041630] text-white cursor-pointer"
+                          >
+                            {" "}
+                            <VscGitStashApply />
+                            Apply
+                          </Button>
                         </DialogTrigger>
                         <DialogContent className="sm:max-w-[425px]">
                           <DialogHeader>
-                            <DialogTitle>Assignment Submission</DialogTitle>
-                            <DialogDescription>..</DialogDescription>
+                            <DialogTitle className="text-center text-2xl font-roboto">Assignment Submission</DialogTitle>
+                            <DialogDescription>
+                              <span className="font-bold text-black">Note: </span>
+                              <span className="text-[#FF2C2C]">When applying for a certificate, you must compile all homework and assignments given during the course into a single folder, upload it to Google Drive, paste the shared link here, and then click the Submit button.</span>
+                            </DialogDescription>
                           </DialogHeader>
                           <div className="grid gap-4">
                             <div className="grid gap-3">
@@ -143,8 +154,8 @@ const Certificate = () => {
                           btnloading === course._id && "hidden"
                         }`}
                       >
-                        <span>
-                          Download <FaDownload />
+                        <span className="flex gap-3 items-center">
+                          <FaDownload /> Download
                         </span>
                       </span>
 

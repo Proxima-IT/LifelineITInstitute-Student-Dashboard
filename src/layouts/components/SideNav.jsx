@@ -128,11 +128,11 @@ const SideNav = () => {
 
       {/* <!-- Hero Banner --> */}
       <section className="bg-white py-10 px-2">
-        <div className="max-w-screen-xl mx-auto bg-white rounded-xl shadow-card overflow-hidden flex flex-col lg:flex-row relative min-h-[220px] lg:min-h-[240px] ">
+        <div className="max-w-screen-xl mx-auto bg-white rounded-xl shadow-card overflow-hidden flex flex-col lg:flex-row relative min-h-[170px] lg:min-h-[240px] ">
           <div className="flex-1 hidden  coverdesktop  bg-gradient-to-l from-[#0B254C] via-[#266ea1] to-[#041630] text-white  md:flex flex-col justify-center"></div>
           <div className="flex-1 covermobile md:hidden  bg-gradient-to-l from-[#0B254C] via-[#266ea1] to-[#041630] text-white  flex flex-col justify-center"></div>
 
-          <div className="absolute left-6 bottom-[8px] lg:left-6 lg:bottom-[12px] w-24 h-24 rounded-full border-4 border-white bg-blue-500 flex items-center justify-center cursor-pointer overflow-hidden shadow shadow-blue-100">
+          <div className="absolute left-6 bottom-[10px] lg:left-6 lg:bottom-[10px] w-20 h-20 rounded-full border-4 border-white bg-blue-500 flex items-center justify-center cursor-pointer overflow-hidden shadow shadow-blue-100">
             {/* <i className="fas fa-user text-white text-4xl"></i> */}
             <img
               src={data?.image}
@@ -141,8 +141,8 @@ const SideNav = () => {
             />
           </div>
 
-          <div className="absolute left-40 bottom-10 lg:bottom-8 text-gray-800">
-            <div className="text-sm -ml-6 lg:text-xl font-semibold text-white mb-2 pr-2">
+          <div className="absolute left-40 bottom-7 lg:bottom-6 text-gray-800 text-left">
+            <div className="text-sm -ml-10 lg:text-xl font-semibold text-white mb-2 pr-2">
               {data?.name}
             </div>
             <div className="text-sm -ml-8 text-gray-100">{data?.sid}</div>

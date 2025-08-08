@@ -101,7 +101,7 @@ const Header = () => {
     <div className="p-[8px] flex items-center justify-around sticky top-0 z-50 bg-[#0c2851] shadow">
       {/* Logo */}
       <div className="lg:w-3/12">
-        <Link to="/">
+        <Link to="https://lifelineitinstitute.com/">
           <img src={logo} alt="Logo" className="w-full md:w-2/5 lg:w-[85%] " />
         </Link>
       </div>
@@ -238,7 +238,7 @@ const Header = () => {
             {/* Drawer Header */}
             <div className="w-full flex items-center justify-between px-4">
               <Link
-                to="/"
+                to="https://lifelineitinstitute.com/"
                 className="text-lg font-semibold text-sky-700 flex items-center gap-x-2"
               >
                 <img src={logo} alt="" className="w-5/6 md:w-1/2" />
