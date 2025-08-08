@@ -113,12 +113,27 @@ const SideNav = () => {
       </div>
     );
 
-  const handleClick = () => {
-    // navigate("/our-courses");
-    setTimeout(() => {
-      window.scrollTo({ top: 320, behavior: "smooth" });
-    }, 100); // delay to ensure page loads
-  };
+ const handleClick = () => {
+  setTimeout(() => {
+    const screenWidth = window.innerWidth;
+
+    let scrollPosition = 320; // default
+
+    if (screenWidth < 640) {
+      // Mobile devices
+      scrollPosition = 790;
+    } else if (screenWidth >= 640 && screenWidth < 1024) {
+      // Tablets or small laptops
+      scrollPosition = 800;
+    } else {
+      // Desktops
+      scrollPosition = 320;
+    }
+
+    window.scrollTo({ top: scrollPosition, behavior: "smooth" });
+  }, 100);
+};
+
 
   return (
     <div>
