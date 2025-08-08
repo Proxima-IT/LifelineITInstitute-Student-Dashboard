@@ -105,9 +105,9 @@ const Certificate = () => {
                             Apply
                           </Button>
                         </DialogTrigger>
-                        <DialogContent className="sm:max-w-[425px]">
+                        <DialogContent className="w-[94%]  py-3 rounded-md">
                           <DialogHeader>
-                            <DialogTitle className="text-center text-2xl font-roboto">Assignment Submission</DialogTitle>
+                            <DialogTitle className="text-center text-2xl font-roboto mt-4">Assignment Submission</DialogTitle>
                             <DialogDescription>
                               <span className="font-bold text-black">Note: </span>
                               <span className="text-[#FF2C2C]">When applying for a certificate, you must compile all homework and assignments given during the course into a single folder, upload it to Google Drive, paste the shared link here, and then click the Submit button.</span>
@@ -120,15 +120,16 @@ const Certificate = () => {
                                 id="drive"
                                 name="name"
                                 // defaultValue="Pedro Duarte"
+                                
                                 placeholder="Enter your drive link"
                               />
                             </div>
                           </div>
                           <DialogFooter>
                             <DialogClose asChild>
-                              <Button variant="outline">Cancel</Button>
+                              <Button variant="outline" >Cancel</Button>
                             </DialogClose>
-                            <Button type="submit">Submit</Button>
+                            <Button type="submit" className="mb-2">Submit</Button>
                           </DialogFooter>
                         </DialogContent>
                       </form>
