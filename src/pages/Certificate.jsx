@@ -83,6 +83,15 @@ const Certificate = () => {
         theme: "dark",
       });
     }
+    else{
+       toast.error(` Certificate Already Applied`, {
+        position: "top-center",
+        autoClose: 3000,
+        closeOnClick: true,
+        draggable: false,
+        theme: "dark",
+      });
+    }
     console.log(res);
   };
   return (
