@@ -74,7 +74,7 @@ const Certificate = () => {
       `${import.meta.env.VITE_API_URL}/api/dashboard/certificate/apply`,
       applyData
     );
-    if (res.status === 200) {
+    if (res.status === 201) {
       toast.success(` Certificate Request Applied successfully`, {
         position: "top-center",
         autoClose: 3000,
