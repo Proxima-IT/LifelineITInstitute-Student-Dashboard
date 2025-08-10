@@ -37,7 +37,7 @@ const CourseDetails = () => {
       </Helmet>
 
       <div className="text-left space-y-5">
-        <h2 className="mb-4 text-xl p-3 text-[#285ca5] flex items-center justify-center font-bold leading-tight bg-slate-200  shadow-md">
+        <h2 className="mb-4 text-xl p-3 text-[#285ca5] flex items-center justify-center font-bold leading-tight border border-[#e5e5e5] shadow-[0_3px_10px_rgba(0,0,0,0.05)]">
           Course Details
         </h2>
 

@@ -156,11 +156,11 @@ const SideNav = () => {
             />
           </div>
 
-          <div className="absolute left-40 bottom-7 lg:bottom-6 text-gray-800 text-left">
-            <div className="text-sm -ml-10 lg:text-xl font-semibold text-white mb-2 pr-2">
+          <div className="absolute left-40 bottom-7 lg:bottom-6 text-gray-600 text-left">
+            <div style={{ textShadow: "1px 1px 2px gray" }} className="text-sm -ml-10 lg:text-xl font-semibold text-gray-200  mb-2 pr-2">
               {data?.name}
             </div>
-            <div className="text-sm -ml-8 text-gray-100">{data?.sid}</div>
+            <div className="text-sm -ml-8 text-gray-200">{data?.sid}</div>
           </div>
 
           {/* <div className="absolute right-3 bottom-0 md:bottom-2 lg:bottom-4 text-xs text-gray-500">
@@ -239,7 +239,8 @@ const SideNav = () => {
                 </NavLink>
               </li>
 
-              <h3 className="text-left ml-3 text-gray-800">User</h3>
+              <hr />
+              <h3 className="text-left ml-3 text-gray-800 text-lg">User Management</h3>
               <li>
                 <NavLink
                   to="/profile"
