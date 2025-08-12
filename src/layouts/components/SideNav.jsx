@@ -113,27 +113,37 @@ const SideNav = () => {
       </div>
     );
 
- const handleClick = () => {
-  setTimeout(() => {
-    const screenWidth = window.innerWidth;
+  const handleClick = () => {
+    setTimeout(() => {
+      const screenWidth = window.innerWidth;
 
-    let scrollPosition = 320; // default
+      let scrollPosition = 320; // default
 
-    if (screenWidth < 640) {
-      // Mobile devices
-      scrollPosition = 790;
-    } else if (screenWidth >= 640 && screenWidth < 1024) {
-      // Tablets or small laptops
-      scrollPosition = 800;
-    } else {
-      // Desktops
-      scrollPosition = 320;
-    }
+      if (screenWidth < 640) {
+        // Mobile devices
+        scrollPosition = 790;
+      } else if (screenWidth >= 640 && screenWidth < 1024) {
+        // Tablets or small laptops
+        scrollPosition = 800;
+      } else {
+        // Desktops
+        scrollPosition = 320;
+      }
 
-    window.scrollTo({ top: scrollPosition, behavior: "smooth" });
-  }, 100);
-};
+      window.scrollTo({ top: scrollPosition, behavior: "smooth" });
+    }, 100);
+  };
 
+  const hours = new Date().getHours();
+  let greeting = "";
+
+  if (hours < 12) {
+    greeting = "Good Morning";
+  } else if (hours < 18) {
+    greeting = "Good Afternoon";
+  } else {
+    greeting = "Good Evening";
+  }
 
   return (
     <div>
@@ -142,7 +152,7 @@ const SideNav = () => {
       <Header></Header>
 
       {/* <!-- Hero Banner --> */}
-      <section className="bg-white py-10 px-2">
+      <section className="bg-white pt-10 px-2">
         <div className="max-w-screen-xl mx-auto bg-white rounded-xl shadow-card overflow-hidden flex flex-col lg:flex-row relative min-h-[170px] lg:min-h-[240px] ">
           <div className="flex-1 hidden  coverdesktop  bg-gradient-to-l from-[#0B254C] via-[#266ea1] to-[#041630] text-white  md:flex flex-col justify-center"></div>
           <div className="flex-1 covermobile md:hidden  bg-gradient-to-l from-[#0B254C] via-[#266ea1] to-[#041630] text-white  flex flex-col justify-center"></div>
@@ -157,7 +167,10 @@ const SideNav = () => {
           </div>
 
           <div className="absolute left-40 bottom-7 lg:bottom-6 text-gray-600 text-left">
-            <div style={{ textShadow: "1px 1px 2px gray" }} className="text-sm -ml-10 lg:text-xl font-semibold text-gray-200  mb-2 pr-2">
+            <div
+              style={{ textShadow: "1px 1px 2px gray" }}
+              className="text-sm -ml-10 lg:text-xl font-semibold text-gray-200  mb-2 pr-2"
+            >
               {data?.name}
             </div>
             <div className="text-sm -ml-8 text-gray-200">{data?.sid}</div>
@@ -167,6 +180,10 @@ const SideNav = () => {
             IP Address : 89.116.158.124
           </div> */}
         </div>
+
+        <div className="uppercase text-[20px] lg:text-[32px] font-bold text-[#0D47A1] py-[15px] ">
+          {greeting}, <strong>{data?.name} 👋 </strong>
+        </div>
       </section>
 
       {/* <!-- Main Layout --> */}
@@ -174,9 +191,6 @@ const SideNav = () => {
         {/* <!-- Sidebar --> */}
         <aside className="lg:w-1/4 w-full  lg:block border-2 border-[#0B254C] rounded-md py-2">
           <div className="bg-white shadow-card rounded-xl p-6">
-            <div className="uppercase text-sm text-gray-500 mb-4">
-              Welcome, <strong>{data?.name}</strong>
-            </div>
             <ul className="space-y-2">
               <li>
                 <NavLink
@@ -240,7 +254,9 @@ const SideNav = () => {
               </li>
 
               <hr />
-              <h3 className="text-left ml-3 text-gray-800 text-lg">User Management</h3>
+              <h3 className="text-left ml-3 text-gray-800 text-lg">
+                User Management
+              </h3>
               <li>
                 <NavLink
                   to="/profile"
