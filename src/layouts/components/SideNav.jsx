@@ -173,7 +173,7 @@ const SideNav = () => {
             >
               {data?.name}
             </div>
-            <div className="text-sm -ml-8 text-gray-200">{data?.sid}</div>
+            <div className="text-sm -ml-10 text-gray-200 ">{data?.sid}</div>
           </div>
 
           {/* <div className="absolute right-3 bottom-0 md:bottom-2 lg:bottom-4 text-xs text-gray-500">

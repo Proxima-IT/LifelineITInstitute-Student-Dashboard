@@ -24,9 +24,9 @@ iframe {
 }
 
 a.active {
-  border-left: 4px solid blueviolet; /* replace with actual color */
+  border-left: 5px solid rgb(126, 32, 214); /* replace with actual color */
   font-weight: 600; /* Tailwind's font-semibold */
-  background-color: #f7f7ff;
+  background-color: #d3d3e7;
 }
 
 .logo {
